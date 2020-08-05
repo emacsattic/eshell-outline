@@ -95,15 +95,11 @@ Note: This does not act like `outline-show-branches', as
    ;; eshell-{previous,next}-prompt are the same as
    ;; outline-{next,previous} -- no need to bind these.
 
-
-
-   (define-key map (kbd "C-c C-c") #'eshell-outline-hide-or-interrupt)
-   (define-key map (kbd "C-c C-k") #'eshell-outline-hide-or-kill)
+   (define-key map (kbd "C-c C-c") #'eshell-outline-toggle-or-interrupt)
+   (define-key map (kbd "C-c C-k") #'eshell-outline-toggle-or-kill)
 
    ;; From outline.el
    (define-key map (kbd "C-c C-a") #'outline-show-all)
-   (define-key map (kbd "C-c C-e") #'outline-show-entry)
-   (define-key map (kbd "C-c C-s") #'outline-show-subtree)
    (define-key map (kbd "C-c C-t") #'outline-hide-body)
 
    ;; Default `outline-minor-mode' keybindings
