@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
-;; Keywords: 
+;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -27,21 +27,22 @@
 (require 'outline)
 
 ;;;###autoload
-(defun eshell-outline-view-buffer ()
+(defun eshell-outline-view-buffer ()	; temporary
+  "Clone the current eshell buffer, and enable `outline-mode'.
+
+This will clone the buffer via `clone-indirect-buffer', so all
+following changes to the original buffer will be transferred.
+
+The command `eshell-outline-minor-mode' is a more interactive
+version, with more specialized keybindings."
   (interactive)
   (let* ((buffer
-	  ;; (get-buffer-create (generate-new-buffer-name "*eshell org*"))
-	  (clone-indirect-buffer (generate-new-buffer-name "*eshell org*") nil)))
+	  (clone-indirect-buffer (generate-new-buffer-name "*eshell outline*") nil)))
     (with-current-buffer buffer
       (outline-mode)
-      (setq-local outline-regexp eshell-prompt-regexp))
+      (setq-local outline-regexp eshell-prompt-regexp)
+      (outline-hide-body))
     (pop-to-buffer buffer)))
-
-
-;; (defun eshell-outline-minor-mode ()
-;;   (interactive)
-;;   (outline-minor-mode)
-;;   (setq-local outline-regexp eshell-prompt-regexp))
 
 
 ;;; Internal functions
@@ -82,8 +83,6 @@
     ;; Default `outline-minor-mode' keybindings
     (define-key map (kbd "C-c @") outline-mode-prefix-map)
     map))
-
-(define-key eshell-mode-map (kbd "C-c v") #'eshell-outline-view-buffer)
 
 (define-minor-mode eshell-outline-minor-mode
   "Outline-mode in Eshell.
