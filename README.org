@@ -1,0 +1,31 @@
+#+title: Eshell-outline.el -- Enhanced outline-mode for Eshell
+#+author: Jamie Beardslee
+#+email: jdb@jamzattack.xyz
+
+* TODO Commentary
+
+* Installation
+
+** package.el
+
+Download eshell-outline.el, and use =M-x package-install-file RET
+path/to/eshell-outline.el=.
+
+** straight.el
+
+Evaluate the following:
+
+#+begin_src emacs-lisp
+  (straight-use-package
+   '(eshell-outline :type git
+		    :flavor melpa
+		    :repo "git://jamzattack.xyz/eshell-outline.git"))
+#+end_src
+
+** Manual installation
+
+1. Download eshell-outline.el
+2. Stick it in [[help:load-path][load-path]]
+3. Update autoloads
+4. (optionally) byte-compile it
+
