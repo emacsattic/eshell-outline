@@ -109,14 +109,18 @@ Note: This does not act like `outline-show-branches', as
 (define-minor-mode eshell-outline-mode
   "Outline-mode in Eshell.
 
-\\{eshell-outline-mode-map}" nil " $…"
-  eshell-outline-mode-map
-  (unless (derived-mode-p 'eshell-mode)
-    (user-error "Only enable this mode in eshell"))
+\\{eshell-outline-mode-map}"		; doc
+  nil					; init
+  " $…"					; lighter
+  eshell-outline-mode-map		; keymap
   (if eshell-outline-mode
       (progn
 	(setq-local outline-regexp eshell-prompt-regexp)
-	(add-to-invisibility-spec '(outline . t)))
+	(add-to-invisibility-spec '(outline . t))
+	;; TODO: how to make minor-mode only available in eshell-mode?
+	(unless (derived-mode-p 'eshell-mode)
+	  (eshell-outline-mode -1)
+	  (user-error "Only enable this mode in eshell")))
     (remove-from-invisibility-spec '(outline . t))
     (outline-show-all)))
 
