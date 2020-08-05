@@ -1,9 +1,11 @@
-;;; eshell-outline.el --- View eshell buffer in outline-mode  -*- lexical-binding: t; -*-
+;;; eshell-outline.el --- Enhanced outline-mode for Eshell  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords:
+;; Version: 2020.08.06
+;; URL: https://git.jamzattack.xyz/eshell-outline
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -20,7 +22,7 @@
 
 ;;; Commentary:
 
-;; 
+;;
 
 ;;; Code:
 (require 'eshell)
