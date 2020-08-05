@@ -48,9 +48,10 @@ with more specialized keybindings."
 ;;; Internal functions
 
 (defun eshell-outline--final-prompt-p ()
-  "Return t if point is at the latest input."
-  (save-excursion
-    (not (eshell-previous-prompt 1))))
+  "Return t if a process is running or point is it final prompt."
+  (or eshell-process-list
+      (save-excursion
+	(not (eshell-previous-prompt 1)))))
 
 
 ;;; Commands
