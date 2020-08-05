@@ -35,8 +35,8 @@
 This will clone the buffer via `clone-indirect-buffer', so all
 following changes to the original buffer will be transferred.
 
-The command `eshell-outline-mode' is a more interactive version,
-with more specialized keybindings."
+The command `eshell-outline-mode' offers a more interactive
+version, with specialized keybindings."
   (interactive)
   (let* ((buffer
 	  (clone-indirect-buffer (generate-new-buffer-name "*eshell outline*") nil)))
@@ -86,7 +86,8 @@ Note: This does not act like `outline-show-branches', as
     (outline-show-children)))
 
 
-;;; Keymap
+;;; The minor mode
+
 (defvar eshell-outline-mode-map
   "The keymap for `eshell-outline-mode'.")
 
