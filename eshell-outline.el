@@ -33,8 +33,8 @@
 This will clone the buffer via `clone-indirect-buffer', so all
 following changes to the original buffer will be transferred.
 
-The command `eshell-outline-minor-mode' is a more interactive
-version, with more specialized keybindings."
+The command `eshell-outline-mode' is a more interactive version,
+with more specialized keybindings."
   (interactive)
   (let* ((buffer
 	  (clone-indirect-buffer (generate-new-buffer-name "*eshell outline*") nil)))
@@ -52,46 +52,71 @@ version, with more specialized keybindings."
   (save-excursion
     (not (eshell-previous-prompt 1))))
 
-(defun eshell-outline-hide-or-interrupt (&optional int)
-  (interactive "P")
-  (if (or int eshell-process-list)
-      (eshell-interrupt-process)
-    (outline-hide-entry)))
+
+;;; Commands
 
-(defun eshell-outline-hide-or-kill (&optional kill)
+(defun eshell-outline-toggle-or-interrupt (&optional int)
+  "Interrupt the process or toggle outline children.
+
+With prefix arg INT, or if point is on the final prompt, send an
+interrupt signal to the running process.
+
+Otherwise, show or hide the heading (i.e. command) at point."
   (interactive "P")
-  (if (or kill eshell-process-list)
+  (if (or int (eshell-outline--final-prompt-p))
+      (eshell-interrupt-process)
+    (outline-toggle-children)))
+
+(defun eshell-outline-toggle-or-kill (&optional kill)
+  "Kill the process or toggle outline children.
+
+With prefix arg KILL, or if point is on the final prompt, send a
+kill signal to the running process.
+
+Otherwise, show or hide the heading (i.e. command) at point.
+
+Note: This does not act like `outline-show-branches', as
+`eshell-outline-mode' only goes 1 level deep."
+  (interactive "P")
+  (if (or kill (eshell-outline--final-prompt-p))
       (eshell-kill-process)
-    (outline-show-branches)))
+    (outline-show-children)))
 
 
 ;;; Keymap
+(defvar eshell-outline-mode-map
+  "The keymap for `eshell-outline-mode'.")
 
-(setq eshell-outline-minor-mode-map
-      ;; eshell-{previous,next}-prompt are the same as
-      ;; outline-{next,previous} -- no need to bind these.
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-c C-c") #'eshell-outline-hide-or-interrupt)
-    (define-key map (kbd "C-c C-k") #'eshell-outline-hide-or-kill)
+(setq
+ ;; the `setq' is for development, TODO move to `defvar'
+ eshell-outline-mode-map
+ (let ((map (make-sparse-keymap)))
+   ;; eshell-{previous,next}-prompt are the same as
+   ;; outline-{next,previous} -- no need to bind these.
 
-    ;; From outline.el
-    (define-key map (kbd "C-c C-a") #'outline-show-all)
-    (define-key map (kbd "C-c C-e") #'outline-show-entry)
-    (define-key map (kbd "C-c C-s") #'outline-show-subtree)
-    (define-key map (kbd "C-c C-t") #'outline-hide-body)
 
-    ;; Default `outline-minor-mode' keybindings
-    (define-key map (kbd "C-c @") outline-mode-prefix-map)
-    map))
 
-(define-minor-mode eshell-outline-minor-mode
+   (define-key map (kbd "C-c C-c") #'eshell-outline-hide-or-interrupt)
+   (define-key map (kbd "C-c C-k") #'eshell-outline-hide-or-kill)
+
+   ;; From outline.el
+   (define-key map (kbd "C-c C-a") #'outline-show-all)
+   (define-key map (kbd "C-c C-e") #'outline-show-entry)
+   (define-key map (kbd "C-c C-s") #'outline-show-subtree)
+   (define-key map (kbd "C-c C-t") #'outline-hide-body)
+
+   ;; Default `outline-minor-mode' keybindings
+   (define-key map (kbd "C-c @") outline-mode-prefix-map)
+   map))
+
+(define-minor-mode eshell-outline-mode
   "Outline-mode in Eshell.
 
-\\{eshell-outline-minor-mode-map}" nil " $…"
-  eshell-outline-minor-mode-map
+\\{eshell-outline-mode-map}" nil " $…"
+  eshell-outline-mode-map
   (unless (derived-mode-p 'eshell-mode)
     (user-error "Only enable this mode in eshell"))
-  (if eshell-outline-minor-mode
+  (if eshell-outline-mode
       (progn
 	(setq-local outline-regexp eshell-prompt-regexp)
 	(add-to-invisibility-spec '(outline . t)))
