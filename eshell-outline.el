@@ -106,6 +106,7 @@ Note: This does not act like `outline-show-branches', as
    (define-key map (kbd "C-c @") outline-mode-prefix-map)
    map))
 
+;;;###autoload
 (define-minor-mode eshell-outline-mode
   "Outline-mode in Eshell.
 
