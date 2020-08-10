@@ -50,40 +50,39 @@ version, with specialized keybindings."
 ;;; Internal functions
 
 (defun eshell-outline--final-prompt-p ()
-  "Return t if a process is running or point is it final prompt."
-  (or eshell-process-list
-      (save-excursion
-	(not (eshell-previous-prompt 1)))))
-
+  "Return t if point is at or after the final prompt."
+  (save-excursion
+    (not (re-search-forward eshell-prompt-regexp nil t))))
 
 ;;; Commands
 
-(defun eshell-outline-toggle-or-interrupt (&optional int)
+(defun eshell-outline-toggle-or-interrupt (&optional arg)
   "Interrupt the process or toggle outline children.
 
-With prefix arg INT, or if point is on the final prompt, send an
-interrupt signal to the running process.
-
-Otherwise, show or hide the heading (i.e. command) at point."
+If prefix ARG is simply \\[universal-argument], always toggle
+children.  If ARG is anything else, or if a process is running,
+attempt to interrupt it.  Otherwise, toggle children."
   (interactive "P")
-  (if (or int (eshell-outline--final-prompt-p))
-      (eshell-interrupt-process)
-    (outline-toggle-children)))
+  (cond ((eq arg '(4))
+	 (outline-toggle-children))
+	((or arg eshell-process-list)
+	 (eshell-interrupt-process))
+	(t
+	 (outline-toggle-children))))
 
-(defun eshell-outline-toggle-or-kill (&optional kill)
+(defun eshell-outline-toggle-or-kill (&optional arg)
   "Kill the process or toggle outline children.
 
-With prefix arg KILL, or if point is on the final prompt, send a
-kill signal to the running process.
-
-Otherwise, show or hide the heading (i.e. command) at point.
-
-Note: This does not act like `outline-show-branches', as
-`eshell-outline-mode' only goes 1 level deep."
+If prefix ARG is simply \\[universal-argument], always toggle
+children.  If ARG is anything else, or if a process is running,
+kill it.  Otherwise, toggle children."
   (interactive "P")
-  (if (or kill (eshell-outline--final-prompt-p))
-      (eshell-kill-process)
-    (outline-show-children)))
+  (cond ((eq arg '(4))
+	 (outline-toggle-children))
+	((or arg eshell-process-list)
+	 (eshell-kill-process))
+	(t
+	 (outline-toggle-children))))
 
 (defun eshell-outline-mark ()
   "Mark the current prompt and output.
