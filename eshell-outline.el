@@ -60,12 +60,14 @@ version, with specialized keybindings."
   "Interrupt the process or toggle outline children.
 
 If prefix ARG is simply \\[universal-argument], always toggle
-children.  If ARG is anything else, or if a process is running,
-attempt to interrupt it.  Otherwise, toggle children."
+children.  If ARG is anything else, or if a process is running
+and point is beyond the final prompt, attempt to interrupt it.
+Otherwise, toggle children."
   (interactive "P")
   (cond ((eq arg '(4))
 	 (outline-toggle-children))
-	((or arg eshell-process-list)
+	((or arg (and eshell-process-list
+		      (eshell-outline--final-prompt-p)))
 	 (eshell-interrupt-process))
 	(t
 	 (outline-toggle-children))))
@@ -74,12 +76,14 @@ attempt to interrupt it.  Otherwise, toggle children."
   "Kill the process or toggle outline children.
 
 If prefix ARG is simply \\[universal-argument], always toggle
-children.  If ARG is anything else, or if a process is running,
-kill it.  Otherwise, toggle children."
+children.  If ARG is anything else, or if a process is running
+and point is beyond the final prompt, kill it.  Otherwise, toggle
+children."
   (interactive "P")
   (cond ((eq arg '(4))
 	 (outline-toggle-children))
-	((or arg eshell-process-list)
+	((or arg (and eshell-process-list
+		      (eshell-outline--final-prompt-p)))
 	 (eshell-kill-process))
 	(t
 	 (outline-toggle-children))))
