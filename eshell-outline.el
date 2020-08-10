@@ -85,10 +85,19 @@ Note: This does not act like `outline-show-branches', as
       (eshell-kill-process)
     (outline-show-children)))
 
+(defun eshell-outline-mark ()
+  "Mark the current prompt and output.
+
+If point is at the end of the buffer, "
+  (interactive)
+  (if (= (point) (point-max))
+      (forward-line -1))
+  (outline-mark-subtree))
+
 
 ;;; The minor mode
 
-(defvar eshell-outline-mode-map
+(defvar eshell-outline-mode-map (make-sparse-keymap)
   "The keymap for `eshell-outline-mode'.")
 
 (setq
@@ -100,6 +109,7 @@ Note: This does not act like `outline-show-branches', as
 
    (define-key map (kbd "C-c C-c") #'eshell-outline-toggle-or-interrupt)
    (define-key map (kbd "C-c C-k") #'eshell-outline-toggle-or-kill)
+   (define-key map (kbd "C-c M-m") #'eshell-outline-mark)
 
    ;; From outline.el
    (define-key map (kbd "C-c C-a") #'outline-show-all)
