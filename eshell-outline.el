@@ -143,10 +143,8 @@ command's output."
 (define-minor-mode eshell-outline-mode
   "Outline-mode in Eshell.
 
-\\{eshell-outline-mode-map}"		; doc
-  nil					; init
-  " $…"					; lighter
-  eshell-outline-mode-map		; keymap
+\\{eshell-outline-mode-map}"
+  :lighter " $…"
   (if eshell-outline-mode
       (progn
 	(setq-local outline-regexp eshell-prompt-regexp)
