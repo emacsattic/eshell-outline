@@ -91,11 +91,27 @@ children."
 (defun eshell-outline-mark ()
   "Mark the current prompt and output.
 
-If point is at the end of the buffer, "
+If point is at the end of the buffer, this will mark the previous
+command's output."
   (interactive)
   (if (= (point) (point-max))
       (forward-line -1))
   (outline-mark-subtree))
+
+(defun eshell-outline-narrow ()
+  "Narrow to the current prompt and output."
+  (interactive)
+  (let ((beg
+	 (save-excursion
+	   (end-of-line)
+	   (re-search-backward eshell-prompt-regexp nil t)))
+	(end
+	 (save-excursion
+	   (if (re-search-forward eshell-prompt-regexp nil t 1)
+	       (progn (forward-line 0)
+		      (point))
+	     (point-max)))))
+    (narrow-to-region beg end)))
 
 
 ;;; The minor mode
@@ -109,10 +125,11 @@ If point is at the end of the buffer, "
  (let ((map (make-sparse-keymap)))
    ;; eshell-{previous,next}-prompt are the same as
    ;; outline-{next,previous} -- no need to bind these.
-
    (define-key map (kbd "C-c C-c") #'eshell-outline-toggle-or-interrupt)
    (define-key map (kbd "C-c C-k") #'eshell-outline-toggle-or-kill)
    (define-key map (kbd "C-c M-m") #'eshell-outline-mark)
+   ;; similar to `comint-clear-buffer'
+   (define-key map (kbd "C-c M-o") #'eshell-outline-narrow)
 
    ;; From outline.el
    (define-key map (kbd "C-c C-a") #'outline-show-all)
