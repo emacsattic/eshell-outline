@@ -2,7 +2,8 @@
 #+author: Jamie Beardslee
 #+email: jdb@jamzattack.xyz
 
-* TODO Commentary
+This library provides a few enhancements for using [[help:outline-minor-mode][outline-minor-mode]]
+within [[help:eshell][eshell]].
 
 * Installation
 
@@ -18,8 +19,8 @@ Evaluate the following:
 #+begin_src emacs-lisp
   (straight-use-package
    '(eshell-outline :type git
-		    :flavor melpa
-		    :repo "git://jamzattack.xyz/eshell-outline.git"))
+                    :flavor melpa
+                    :repo "git://jamzattack.xyz/eshell-outline.git"))
 #+end_src
 
 ** Manual installation
@@ -29,3 +30,14 @@ Evaluate the following:
 3. Update autoloads
 4. (optionally) byte-compile it
 
+* Keybindings
+
+| Key     | Description (=C-c C-o= in org-mode to show documentation) |
+|---------+---------------------------------------------------------|
+| =C-c C-k= | [[help:eshell-outline-toggle-or-kill][show/hide prompt+output or kill process]]                 |
+| =C-c C-c= | [[help:eshell-outline-toggle-or-interrupt][show/hide prompt+output or interrupt process]]            |
+| =C-c C-t= | [[help:outline-hide-body][hide all]]                                                |
+| =C-c C-a= | [[help:outline-show-all][show all]]                                                |
+| =C-c M-o= | [[help:eshell-outline-narrow][narrow to prompt+output]]                                 |
+| =C-c M-m= | [[help:eshell-outline-mark][mark prompt+output]]                                      |
+| =C-c @=   | [[help:outline-minor-mode-map][prefix for outline-minor-mode-map]]                       |
