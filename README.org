@@ -40,4 +40,5 @@ Evaluate the following:
 | =C-c C-a= | [[help:outline-show-all][show all]]                                                |
 | =C-c M-o= | [[help:eshell-outline-narrow][narrow to prompt+output]]                                 |
 | =C-c M-m= | [[help:eshell-outline-mark][mark prompt+output]]                                      |
-| =C-c @=   | [[help:outline-minor-mode-map][prefix for outline-minor-mode-map]]                       |
+| =C-c @=   | [[help:outline-mode-prefix-map][prefix for outline-mode-prefix-map]]                      |
+
