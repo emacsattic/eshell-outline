@@ -98,20 +98,24 @@ command's output."
       (forward-line -1))
   (outline-mark-subtree))
 
-(defun eshell-outline-narrow ()
-  "Narrow to the current prompt and output."
-  (interactive)
-  (let ((beg
-	 (save-excursion
-	   (end-of-line)
-	   (re-search-backward eshell-prompt-regexp nil t)))
-	(end
-	 (save-excursion
-	   (if (re-search-forward eshell-prompt-regexp nil t 1)
-	       (progn (forward-line 0)
-		      (point))
-	     (point-max)))))
-    (narrow-to-region beg end)))
+(defun eshell-outline-narrow (&optional widen)
+  "Narrow to the current prompt and output.
+
+With prefix arg, WIDEN instead of narrowing."
+  (interactive "P")
+  (if widen
+      (widen)
+    (let ((beg
+	   (save-excursion
+	     (end-of-line)
+	     (re-search-backward eshell-prompt-regexp nil t)))
+	  (end
+	   (save-excursion
+	     (if (re-search-forward eshell-prompt-regexp nil t 1)
+		 (progn (forward-line 0)
+			(point))
+	       (point-max)))))
+      (narrow-to-region beg end))))
 
 
 ;;; The minor mode
