@@ -51,8 +51,8 @@ version, with specialized keybindings."
 
 (defun eshell-outline--final-prompt-p ()
   "Return t if point is at or after the final prompt."
-  (save-excursion
-    (not (re-search-forward eshell-prompt-regexp nil t))))
+  (> (point) (marker-position eshell-last-input-start)))
+
 
 ;;; Commands
 
