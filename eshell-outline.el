@@ -3,8 +3,8 @@
 ;; Copyright (C) 2020  Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
-;; Keywords:
-;; Version: 2020.08.06
+;; Keywords: unix, eshell, outline, convenience
+;; Version: 2020.08.16
 ;; URL: https://git.jamzattack.xyz/eshell-outline
 
 ;; This program is free software; you can redistribute it and/or modify
