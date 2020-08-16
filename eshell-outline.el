@@ -4,7 +4,7 @@
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords: unix, eshell, outline, convenience
-;; Version: 2020.08.16
+;; Version: 2020.08.17
 ;; URL: https://git.jamzattack.xyz/eshell-outline
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -174,6 +174,7 @@ With prefix arg, WIDEN instead of narrowing."
   (if eshell-outline-mode
       (progn
 	(setq-local outline-regexp eshell-prompt-regexp)
+	(setq-local outline-level (lambda () 1))
 	(add-to-invisibility-spec '(outline . t))
 	;; TODO: how to make minor-mode only available in eshell-mode?
 	(unless (derived-mode-p 'eshell-mode)
