@@ -30,7 +30,31 @@ Evaluate the following:
 3. Update autoloads
 4. (optionally) byte-compile it
 
-* Keybindings
+* Commentary
+
+[[help:eshell-outline-mode][Eshell-Outline mode]] defines a few commands to integrate [[help:outline-minor-mode][Outline minor
+mode]] into [[help:eshell][Eshell]].  Some eshell-specific keys have been rebound so that
+they have multiple uses.
+
+Namely, =C-c C-c= and =C-c C-k= will either kill/interrupt the running
+process, or show/hide the /prompt+output/ at point.
+
+=C-c M-o= ([[help:eshell-mark-output][eshell-mark-output]]/[[help:eshell-outline-narrow][eshell-outline-narrow]]) now uses [[info:emacs#Narrowing][narrowing]]
+to clear the buffer as an analogue to [[help:comint-clear-buffer][comint-clear-buffer]] and
+replacement for [[help:eshell/clear][eshell/clear]].  It is also able to narrow to a previous
+/prompt+output/.
+
+=C-c M-m= (undefined/[[help:eshell-outline-mark][eshell-outline-mark]]) marks the /prompt+output/ at
+point, replacing =C-c M-o= which has been rebound.  If point is at an
+empty prompt at the end of the buffer, this will mark the *previous*
+/prompt+output/ instead.
+
+Because this mode doesn't actually enable [[help:outline-minor-mode][outline-minor-mode]], I also
+bind =C-c @= to [[help:outline-mode-prefix-map][outline-mode-prefix-map]].
+
+See [[*Table of keybindings][Table of keybindings]] for a full list of keybindings.
+
+* Table of keybindings
 
 | Key     | Description (=C-c C-o= in org-mode to show documentation) |
 |---------+---------------------------------------------------------|
@@ -42,3 +66,6 @@ Evaluate the following:
 | =C-c M-m= | [[help:eshell-outline-mark][mark prompt+output]]                                      |
 | =C-c @=   | [[help:outline-mode-prefix-map][prefix for outline-mode-prefix-map]]                      |
 
+* License
+
+GPL3+
