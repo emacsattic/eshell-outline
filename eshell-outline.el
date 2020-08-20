@@ -50,25 +50,6 @@
 (require 'eshell)
 (require 'outline)
 
-;;;###autoload
-(defun eshell-outline-view-buffer ()	; temporary
-  "Clone the current eshell buffer, and enable `outline-mode'.
-
-This will clone the buffer via `clone-indirect-buffer', so all
-following changes to the original buffer will be transferred.
-
-The command `eshell-outline-mode' offers a more interactive
-version, with specialized keybindings."
-  (interactive)
-  (let* ((buffer
-	  (clone-indirect-buffer (generate-new-buffer-name "*eshell outline*") nil)))
-    (with-current-buffer buffer
-      (outline-mode)
-      (setq-local outline-regexp eshell-prompt-regexp)
-      (outline-hide-body))
-    (pop-to-buffer buffer)))
-
-
 ;;; Internal functions
 
 (defun eshell-outline--final-prompt-p ()
@@ -182,6 +163,26 @@ With prefix arg, WIDEN instead of narrowing."
 	  (user-error "Only enable this mode in eshell")))
     (remove-from-invisibility-spec '(outline . t))
     (outline-show-all)))
+
+;;;###autoload
+(defun eshell-outline-view-buffer ()	; temporary
+  "Clone the current eshell buffer, and enable `outline-mode'.
+
+This will clone the buffer via `clone-indirect-buffer', so all
+following changes to the original buffer will be transferred.
+
+The command `eshell-outline-mode' offers a more interactive
+version, with specialized keybindings."
+  (interactive)
+  (let ((buffer
+	 (clone-indirect-buffer
+	  (generate-new-buffer-name "*eshell outline*")
+	  nil)))
+    (with-current-buffer buffer
+      (outline-mode)
+      (eshell-outline--setup-outline-variables)
+      (outline-hide-body))
+    (pop-to-buffer buffer)))
 
 (provide 'eshell-outline)
 ;;; eshell-outline.el ends here
