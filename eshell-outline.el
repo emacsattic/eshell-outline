@@ -128,39 +128,33 @@ With prefix arg, WIDEN instead of narrowing."
 
 ;;; The minor mode
 
-(defvar eshell-outline-mode-map (make-sparse-keymap)
-  "The keymap for `eshell-outline-mode'.")
-
-(setq
- ;; the `setq' is for development, TODO move to `defvar'
- eshell-outline-mode-map
- (let ((map (make-sparse-keymap)))
-   ;; eshell-{previous,next}-prompt are the same as
-   ;; outline-{next,previous} -- no need to bind these.
-   (define-key map (kbd "C-c C-c") #'eshell-outline-toggle-or-interrupt)
-   (define-key map (kbd "C-c C-k") #'eshell-outline-toggle-or-kill)
-   (define-key map (kbd "C-c M-m") #'eshell-outline-mark)
-   ;; similar to `comint-clear-buffer'
-   (define-key map (kbd "C-c M-o") #'eshell-outline-narrow)
-
-   ;; From outline.el
-   (define-key map (kbd "C-c C-a") #'outline-show-all)
-   (define-key map (kbd "C-c C-t") #'outline-hide-body)
-
-   ;; Default `outline-minor-mode' keybindings
-   (define-key map (kbd "C-c @") outline-mode-prefix-map)
-   map))
-
 ;;;###autoload
 (define-minor-mode eshell-outline-mode
   "Outline-mode in Eshell.
 
 \\{eshell-outline-mode-map}"
   :lighter " $…"
+  :keymap
+  (let ((map (make-sparse-keymap)))
+    ;; eshell-{previous,next}-prompt are the same as
+    ;; outline-{next,previous} -- no need to bind these.
+    (define-key map (kbd "C-c C-c") #'eshell-outline-toggle-or-interrupt)
+    (define-key map (kbd "C-c C-k") #'eshell-outline-toggle-or-kill)
+    (define-key map (kbd "C-c M-m") #'eshell-outline-mark)
+    ;; similar to `comint-clear-buffer'
+    (define-key map (kbd "C-c M-o") #'eshell-outline-narrow)
+
+    ;; From outline.el
+    (define-key map (kbd "C-c C-a") #'outline-show-all)
+    (define-key map (kbd "C-c C-t") #'outline-hide-body)
+
+    ;; Default `outline-minor-mode' keybindings
+    (define-key map (kbd "C-c @") outline-mode-prefix-map)
+    map)
+
   (if eshell-outline-mode
       (progn
-	(setq-local outline-regexp eshell-prompt-regexp)
-	(setq-local outline-level (lambda () 1))
+	(eshell-outline--setup-outline-variables)
 	(add-to-invisibility-spec '(outline . t))
 	;; TODO: how to make minor-mode only available in eshell-mode?
 	(unless (derived-mode-p 'eshell-mode)
