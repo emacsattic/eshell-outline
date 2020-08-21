@@ -59,8 +59,8 @@
 
 (defun eshell-outline--setup-outline-variables ()
   "Set a couple of outline variables for Eshell."
-  (setq-local outline-regexp eshell-prompt-regexp
-	      outline-level (lambda () 1)))
+  (setq-local outline-regexp eshell-prompt-regexp)
+  (setq-local outline-level (lambda () 1)))
 
 
 ;;; Commands
