@@ -56,6 +56,11 @@
   "Return t if point is at or after the final prompt."
   (> (point) (marker-position eshell-last-input-start)))
 
+(defun eshell-outline--setup-outline-variables ()
+  "Set a couple of outline variables for Eshell."
+  (setq-local outline-regexp eshell-prompt-regexp
+	      outline-level (lambda () 1)))
+
 
 ;;; Commands
 
