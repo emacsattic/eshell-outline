@@ -6,6 +6,7 @@
 ;; Keywords: unix, eshell, outline, convenience
 ;; Version: 2020.08.17
 ;; URL: https://git.jamzattack.xyz/eshell-outline
+;; Package-Requires: ((emacs "25.1"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
