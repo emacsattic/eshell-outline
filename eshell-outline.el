@@ -4,7 +4,7 @@
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords: unix, eshell, outline, convenience
-;; Version: 2020.08.21
+;; Version: 2020.08.24
 ;; URL: https://git.jamzattack.xyz/eshell-outline
 ;; Package-Requires: ((emacs "25.1"))
 
@@ -50,6 +50,9 @@
 
 (require 'eshell)
 (require 'outline)
+
+(defvar eshell-last-input-start nil)
+(defvar eshell-prompt-regexp nil)
 
 ;;; Internal functions
 
