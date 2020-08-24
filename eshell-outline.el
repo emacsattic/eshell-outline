@@ -51,8 +51,8 @@
 (require 'eshell)
 (require 'outline)
 
-(defvar eshell-last-input-start nil)
-(defvar eshell-prompt-regexp nil)
+(defvar eshell-last-input-start)
+(defvar eshell-prompt-regexp)
 
 ;;; Internal functions
 
