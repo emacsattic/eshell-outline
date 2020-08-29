@@ -9,8 +9,7 @@ within [[help:eshell][eshell]].
 
 ** package.el
 
-Download eshell-outline.el, and use =M-x package-install-file RET
-path/to/eshell-outline.el=.
+Eshell-outline is in [[https://melpa.org/#/eshell-outline][MELPA]], so it's just a [[help:package-install][package-install]] away.
 
 ** straight.el
 
