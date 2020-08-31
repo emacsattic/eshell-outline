@@ -4,7 +4,7 @@
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords: unix, eshell, outline, convenience
-;; Version: 2020.08.24
+;; Version: 2020.08.31
 ;; URL: https://git.jamzattack.xyz/eshell-outline
 ;; Package-Requires: ((emacs "25.1"))
 
@@ -115,19 +115,23 @@ command's output."
 
 With prefix arg, WIDEN instead of narrowing."
   (interactive "P")
-  (if widen
-      (widen)
-    (let ((beg
-	   (save-excursion
-	     (end-of-line)
-	     (re-search-backward eshell-prompt-regexp nil t)))
-	  (end
-	   (save-excursion
-	     (if (re-search-forward eshell-prompt-regexp nil t 1)
-		 (progn (forward-line 0)
-			(point))
-	       (point-max)))))
-      (narrow-to-region beg end))))
+  (cond (widen
+	 (widen))
+	((and eshell-process-list
+	      (not (eshell-outline--final-prompt-p)))
+	 (user-error "Cannot narrow while a process is running"))
+	(t
+	 (let ((beg
+		(save-excursion
+		  (end-of-line)
+		  (re-search-backward eshell-prompt-regexp nil t)))
+	       (end
+		(save-excursion
+		  (if (re-search-forward eshell-prompt-regexp nil t 1)
+		      (progn (forward-line 0)
+			     (point))
+		    (point-max)))))
+	   (narrow-to-region beg end)))))
 
 
 ;;; The minor mode
