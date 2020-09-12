@@ -4,7 +4,7 @@
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords: unix, eshell, outline, convenience
-;; Version: 2020.08.31
+;; Version: 2020.09.12
 ;; URL: https://git.jamzattack.xyz/eshell-outline
 ;; Package-Requires: ((emacs "25.1"))
 
@@ -58,7 +58,7 @@
 
 (defun eshell-outline--final-prompt-p ()
   "Return t if point is at or after the final prompt."
-  (> (point) (marker-position eshell-last-input-start)))
+  (>= (point) (marker-position eshell-last-input-start)))
 
 (defun eshell-outline--setup-outline-variables ()
   "Set a couple of outline variables for Eshell."
