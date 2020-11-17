@@ -13,13 +13,12 @@ Eshell-outline is in [[https://melpa.org/#/eshell-outline][MELPA]], so it's just
 
 ** straight.el
 
-Evaluate the following:
+Use the following recipe:
 
 #+begin_src emacs-lisp
-  (straight-use-package
-   '(eshell-outline :type git
-                    :flavor melpa
-                    :repo "git://jamzattack.xyz/eshell-outline.git"))
+  (eshell-outline :type git
+		  :flavor melpa
+		  :repo "https://git.jamzattack.xyz/eshell-outline")
 #+end_src
 
 ** Manual installation
