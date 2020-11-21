@@ -70,7 +70,6 @@
 
 (defun eshell-outline-toggle-or-interrupt (&optional arg)
   "Interrupt the process or toggle outline children.
-
 If prefix ARG is simply \\[universal-argument], always toggle
 children.  If ARG is anything else, or if a process is running
 and point is beyond the final prompt, attempt to interrupt it.
@@ -86,7 +85,6 @@ Otherwise, toggle children."
 
 (defun eshell-outline-toggle-or-kill (&optional arg)
   "Kill the process or toggle outline children.
-
 If prefix ARG is simply \\[universal-argument], always toggle
 children.  If ARG is anything else, or if a process is running
 and point is beyond the final prompt, kill it.  Otherwise, toggle
@@ -102,7 +100,6 @@ children."
 
 (defun eshell-outline-mark ()
   "Mark the current prompt and output.
-
 If point is at the end of the buffer, this will mark the previous
 command's output."
   (interactive)
@@ -112,7 +109,6 @@ command's output."
 
 (defun eshell-outline-narrow (&optional widen)
   "Narrow to the current prompt and output.
-
 With prefix arg, WIDEN instead of narrowing."
   (interactive "P")
   (cond (widen
@@ -174,10 +170,8 @@ With prefix arg, WIDEN instead of narrowing."
 ;;;###autoload
 (defun eshell-outline-view-buffer ()	; temporary
   "Clone the current eshell buffer, and enable `outline-mode'.
-
 This will clone the buffer via `clone-indirect-buffer', so all
 following changes to the original buffer will be transferred.
-
 The command `eshell-outline-mode' offers a more interactive
 version, with specialized keybindings."
   (interactive)
